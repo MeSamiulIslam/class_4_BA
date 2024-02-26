@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nominee Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Nominee Form</h1>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>Nominee Form</h1>
+
+    <form>
+        <div class="container2">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nominee No</th>
+                        <th>Nominee Name</th>
+                        <th>Relation with Nominee</th>
+                        <th>Nominee NID</th>
+                        <th>Add / Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" id="nomineeNo1"></td>
+                        <td><input type="text" id="nomineeName1"></td>
+                        <td><input type="text" id="relation1"></td>
+                        <td><input type="text" id="nomineeNID1"></td>
+                        <td>
+                            <input type="button" value="+" onclick="addNewSlot()">
+                            <input type="button" value="-" onclick="removeNewSlot('nomineeNo1')">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" id="addNomineesBtn">Add nominees</button>
+        </div>
+    </form>
+
+    <script>
+        function addNewSlot() {
+            const tbody = document.querySelector('tbody');
+            const rowCount = tbody.children.length;
+
+            // Create a new row
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" id="nomineeNo${rowCount + 1}"></td>
+                <td><input type="text" id="nomineeName${rowCount + 1}"></td>
+                <td><input type="text" id="relation${rowCount + 1}"></td>
+                <td><input type="text" id="nomineeNID${rowCount + 1}"></td>
+                <td>
+                    <input type="button" value="+" onclick="addNewSlot()">
+                    <input type="button" value="-" onclick="removeNewSlot('nomineeNo${rowCount + 1}')">
+                </td>
+            `;
+
+            // Append the new row to the table
+            tbody.appendChild(newRow);
+        }
+
+        function removeNewSlot(inputId) {
+            const tbody = document.querySelector('tbody');
+
+            // Ensure at least one row is always present
+            if (tbody.children.length > 1) {
+                // Remove the row containing the specified inputId
+                const rowToRemove = document.getElementById(inputId).parentNode.parentNode;
+                tbody.removeChild(rowToRemove);
+            } else {
+                alert("At least one nominee is required.");
+            }
+        }
+    </script>
+</body>
+</html>
